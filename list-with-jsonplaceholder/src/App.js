@@ -1,13 +1,16 @@
 import './App.css';
 import List from './List';
+import React from "react";
 
 
-function App() {
-    return (
-        <>
-            <List/>
-        </>
-    );
+class App extends React.Component {
+    render() {
+        return (
+            <>
+                <List/>
+            </>
+        );
+    }
 }
 
 export default App;

@@ -1,0 +1,63 @@
+
+.notification-list {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  width: 280px;
+  max-width: calc(100vw - 48px);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+
+  &__item {
+    list-style-type: none;
+    display: block;
+    margin: 0 0 16px;
+    padding: 16px 24px;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d;
+    line-height: 1.5715;
+    overflow: hidden;
+    word-wrap: break-word;
+    position: relative;
+  }
+
+  p {
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.button-close {
+  font-size: 0;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: unset;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+
+  &:before {
+    display: block;
+    content: '';
+    -webkit-mask: url('close.svg') center no-repeat;
+    -webkit-mask-size: 16px 16px;
+    width: 16px;
+    height: 16px;
+    background: black;
+  }
+
+  &:hover {
+    &:before {
+      background: red;
+    }
+  }
+}
