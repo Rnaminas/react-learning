@@ -1,49 +1,99 @@
-ul {
-  max-width: 60%;
-  margin: 2.5% auto 0;
-  display: block;
+.post-list {
+  margin: 2.5% auto;
+  display: grid;
+  grid-template-columns: repeat(3, 300px);
   padding: 0;
   border-radius: 16px;
+  grid-row-gap: 16px;
+  grid-column-gap: 16px;
+  justify-content: center;
 
-  li {
+  &__item {
     list-style-type: none;
     display: flex;
-    align-items: center;
-    margin: 6px 0;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0;
+    padding: 16px;
     border-radius: 6px;
     box-shadow: 1px 2px 6px 1px #dcdcdc;
-
-    &:nth-child(odd) {
-      background: #feffed;
-    }
-
-    &:nth-child(even) {
-      background: #c9d8ff;
-    }
+    position: relative;
   }
 }
 
 p {
-  padding: 10px 20px;
+  padding: 0;
   margin: 0;
   font-size: 14px;
 }
 
 .title {
-  width: 20%;
+  font-weight: bold;
+  text-align: left;
+  text-transform: capitalize;
+  padding-right: 60px;
+  margin-bottom: 16px;
 }
 
 .item-id {
   font-weight: bold;
+  font-size: 27px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #9b9b9b;
+  background: #e2e2e2;
+  border-radius: 0 6px 0 6px;
+  padding: 8px 16px;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: auto;
+  justify-content: center;
 }
 
 .body {
-  width: 50%;
+  margin-bottom: 16px;
 }
 
 .button-delete {
   width: 120px;
-  background: #ff5050;
+  background: #ff8181;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-left: 16px;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: all 0.4s ease-in-out;
+
+  &:after {
+    content: '';
+    display: block;
+    background: url('../src/delete.svg') center no-repeat;
+    background-size: 16px 16px;
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
+  }
+
+  &:hover {
+    background: #ff5050;
+  }
+}
+
+.button-edit {
+  width: 120px;
+  background: #e2e2e2;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -54,15 +104,20 @@ p {
   padding: 10px 20px;
   border-radius: 6px;
   white-space: nowrap;
-  transition: all 0.6s ease-in-out;
+  transition: all 0.4s ease-in-out;
 
-  &:hover {
-    background: #ff2b2b;
+  &:after {
+    content: '';
+    display: block;
+    background: url('../src/edit.svg') center no-repeat;
+    background-size: 16px 16px;
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
   }
 
-
-  img {
-    margin-left: 8px;
+  &:hover {
+    background: #ffbb32;
   }
 }
 
@@ -70,7 +125,7 @@ p {
   border: 0;
   outline: 0;
   padding: 10px 20px;
-  width: 60%;
+  width: 930px;
   margin: 5% auto 0;
   background: #00a000;
   color: white;

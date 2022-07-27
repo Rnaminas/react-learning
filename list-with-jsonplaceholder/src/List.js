@@ -1,7 +1,5 @@
 import React from "react";
 import './List.scss';
-import deleteIcon from './delete.svg';
-import editIcon from './edit.svg';
 import Notification from './Notification';
 import Modal from "./Modal";
 import ModalChild from "./ModalChild";
@@ -14,10 +12,14 @@ class List extends React.Component {
             showNotification: false,
             itemsHandle: [],
             showModal: false,
-            newPost: []
+            modalPost: {},
         };
         this.removeItem = this.removeItem.bind(this);
-        this.toggleModal = this.toggleModal.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.getNewPost = this.getNewPost.bind(this);
+        this.editItem = this.editItem.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.closeNotifications = this.closeNotifications.bind(this);
     }
 
     componentDidMount() {
@@ -31,65 +33,97 @@ class List extends React.Component {
             });
     }
 
-
-    componentWillUnmount() {
-        let newpost = localStorage.getItem('post');
-        this.setState({
-            newPost: newpost,
-        });
-        console.log(newpost);
-    }
-
     removeItem(e) {
         let id = parseInt(e.target.getAttribute("id"));
+        let notificationItem = {postId: id, type: 'remove'};
         let currentItems = this.state.itemsHandle;
-        currentItems.push(id);
+        currentItems.push(notificationItem);
         this.setState({
             items: this.state.items.filter(item => item.id !== id),
             showNotification: true,
-            itemsHandle: currentItems
+            itemsHandle: currentItems,
         });
     }
 
-    toggleModal() {
-        if (this.state.showModal) {
-            this.setState({
-                showModal: false
-            })
-        } else {
-            this.setState({
-                showModal: true
-            })
-        }
+    editItem(e) {
+        let id = parseInt(e.target.getAttribute("id"));
+        let post = this.state.items.filter(item => item.id === id)[0];
+        this.setState({
+            showModal: true,
+            modalPost: post
+        });
     }
 
+    openModal() {
+        this.setState({showModal: true, modalPost: {}})
+    }
+
+    closeModal(status) {
+        this.setState({showModal: status});
+    }
+
+    closeNotifications(status) {
+        this.setState({showNotification: status});
+    }
+
+    getNewPost(post) {
+        let posts = this.state.items;
+        let index = posts.findIndex(item => item['id'] === post[0]['id']);
+        let currentItems = this.state.itemsHandle;
+
+        if (index < 0) {
+            let notificationItem = {postId: post[0]['id'], type: 'add'};
+            currentItems.push(notificationItem);
+            this.setState({
+                items: [...posts, ...post],
+                showNotification: true,
+                itemsHandle: currentItems,
+            });
+        } else {
+            let notificationItem = {postId: post[0]['id'], type: 'edit'};
+            currentItems.push(notificationItem);
+            posts[index]['title'] = post[0]['title'];
+            posts[index]['body'] = post[0]['body'];
+            this.setState({
+                items: posts,
+                showNotification: true,
+                itemsHandle: currentItems,
+            });
+        }
+    }
 
     render() {
         let items = this.state.items;
         let notification, modal;
         if (this.state.showNotification && this.state.itemsHandle.length > 0) {
-            notification =
-                <Notification itemsHandle={this.state.itemsHandle} showNotification={this.state.showNotification}/>;
+            notification = <Notification items={this.state.itemsHandle} show={this.state.showNotification}
+                                         status={this.closeNotifications}/>;
         }
         if (this.state.showModal) {
-            modal = <Modal><ModalChild showModal={this.state.showModal}/></Modal>
+            modal = <Modal>
+                <ModalChild post={this.state.modalPost} allItems={this.state.items} onChangePost={this.getNewPost}
+                            status={this.closeModal}/>
+            </Modal>
         }
 
         return (
             <>
-                <button className="button-add" type="button" onClick={this.toggleModal}>Add post</button>
-                <ul>
+                <button className="button-add" type="button" onClick={this.openModal}>Add post</button>
+                <ul className="post-list">
                     {items.map(item => (
-                        <li key={item.id.toString()}>
+                        <li className="post-list__item" key={item.id.toString()}>
                             <p className="item-id">{item.id}</p>
                             <p className="title">{item.title}</p>
                             <p className="body">{item.body}</p>
-                            <button>Edit
-                                <img src={editIcon} alt="Delete" width="16" height="16"/>
-                            </button>
-                            <button className="button-delete" id={item.id} onClick={this.removeItem}>Delete
-                                <img src={deleteIcon} alt="Delete" width="16" height="16"/>
-                            </button>
+                            <div className="buttons">
+                                <button className="button-edit" id={item.id} onClick={this.editItem}
+                                        type="button">Edit
+                                </button>
+                                <button className="button-delete" type="button" id={item.id}
+                                        onClick={this.removeItem}>Delete
+                                </button>
+                            </div>
+
                         </li>
                     ))}
                 </ul>

@@ -22,6 +22,18 @@
     overflow: hidden;
     word-wrap: break-word;
     position: relative;
+
+    &--add {
+      background: #81f781;
+    }
+
+    &--remove {
+      background: #f78181;
+    }
+
+    &--edit {
+      background: #f7ab81;
+    }
   }
 
   p {
