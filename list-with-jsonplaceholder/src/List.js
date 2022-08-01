@@ -27,8 +27,7 @@ class List extends React.Component {
             .then((response) => response.json())
             .then((result) => {
                 this.setState({
-                    items: result,
-                    showModal: false
+                    items: result
                 })
             });
     }
@@ -47,10 +46,10 @@ class List extends React.Component {
 
     editItem(e) {
         let id = parseInt(e.target.getAttribute("id"));
-        let post = this.state.items.filter(item => item.id === id)[0];
+        let index = this.state.items.findIndex(item => item['id'] === id);
         this.setState({
             showModal: true,
-            modalPost: post
+            modalPost: this.state.items[index]
         });
     }
 
