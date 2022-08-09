@@ -60,7 +60,7 @@
   &:before {
     display: block;
     content: '';
-    -webkit-mask: url('close.svg') center no-repeat;
+    -webkit-mask: url('../assets/close.svg') center no-repeat;
     -webkit-mask-size: 16px 16px;
     width: 16px;
     height: 16px;

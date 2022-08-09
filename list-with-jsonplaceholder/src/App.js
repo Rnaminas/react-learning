@@ -1,14 +1,11 @@
-import './App.css';
-import List from './List';
 import React from "react";
-
+import List from './component/List';
+import './scss/App.css';
 
 class App extends React.Component {
     render() {
         return (
-            <>
-                <List/>
-            </>
+            <List />
         );
     }
 }

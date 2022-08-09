@@ -79,7 +79,7 @@ p {
   &:after {
     content: '';
     display: block;
-    background: url('../src/delete.svg') center no-repeat;
+    background: url('../assets/delete.svg') center no-repeat;
     background-size: 16px 16px;
     width: 16px;
     height: 16px;
@@ -109,7 +109,7 @@ p {
   &:after {
     content: '';
     display: block;
-    background: url('../src/edit.svg') center no-repeat;
+    background: url('../assets/edit.svg') center no-repeat;
     background-size: 16px 16px;
     width: 16px;
     height: 16px;
@@ -140,7 +140,7 @@ p {
   &:after {
     display: block;
     content: '';
-    -webkit-mask: url('add.svg') center no-repeat;
+    -webkit-mask: url('../assets/add.svg') center no-repeat;
     -webkit-mask-size: 16px 16px;
     width: 16px;
     height: 16px;
